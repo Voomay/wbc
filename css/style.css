@@ -74,6 +74,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 body {
@@ -84,6 +87,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
 }
 
 img, picture, video, canvas, svg {
@@ -3242,11 +3248,15 @@ textarea.form-control {
     padding: 2.5rem 1.75rem;
     flex-direction: column;
     transform: translateX(100%);
-    transition: var(--transition);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
   }
 
   .mobile-nav-drawer.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .mobile-nav-backdrop {
@@ -3550,66 +3560,123 @@ textarea.form-control {
 
   /* 5. Giving Section — Fix Side Clipping on Mobile */
   .giving-card {
-    padding: 1.5rem 1.25rem;
+    padding: 1.5rem 1.15rem;
     border-radius: var(--radius-lg);
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
   }
 
   .giving-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.75rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .giving-text-side {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .giving-text-side h3 {
-    font-size: 1.55rem;
-    line-height: 1.3;
+    font-size: 1.5rem;
+    line-height: 1.25;
     word-break: normal;
     overflow-wrap: break-word;
   }
 
   .giving-text-side p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.935rem;
+    line-height: 1.55;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   .scripture-card-small {
     padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .giving-card .btn {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    padding: 0.75rem 1rem;
     font-size: 0.875rem;
+    box-sizing: border-box;
+    line-height: 1.35;
+    word-break: normal;
   }
 
   .bank-details-box {
     padding: 1.25rem 1rem;
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
   }
 
   .bank-header {
     flex-wrap: wrap;
     gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .bank-rows {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .bank-row {
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    padding: 0.6rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(139, 18, 24, 0.06);
+  }
+
+  .bank-row:last-child {
+    border-bottom: none;
   }
 
   .bank-field {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    font-weight: 700;
   }
 
   .bank-val {
-    font-size: 0.875rem;
-    flex-wrap: wrap;
+    font-size: 0.925rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
   }
 
   .reference-hints {
     font-size: 0.75rem;
     word-break: normal;
     overflow-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .reference-hints code {
@@ -3793,6 +3860,20 @@ textarea.form-control {
 
   .timer-val {
     font-size: 1.25rem;
+  }
+
+  /* Giving Card 480px Mobile Rules */
+  .giving-card {
+    padding: 1.25rem 0.85rem !important;
+  }
+
+  .bank-details-box {
+    padding: 1.1rem 0.85rem !important;
+  }
+
+  .giving-card .btn {
+    font-size: 0.8125rem;
+    padding: 0.65rem 0.85rem;
   }
 
   /* Church Chatbot Floater Mobile Adjustments */
