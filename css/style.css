@@ -3058,6 +3058,75 @@ textarea.form-control {
   .lightbox-desc {
     font-size: 0.825rem;
   }
+
+  /* 5. Giving Section — Fix Side Clipping on Mobile */
+  .giving-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .giving-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .giving-text-side h3 {
+    font-size: 1.55rem;
+    line-height: 1.3;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .giving-text-side p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .scripture-card-small {
+    padding: 0.85rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .bank-details-box {
+    padding: 1.25rem 1rem;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .bank-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .bank-row {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .bank-field {
+    font-size: 0.75rem;
+  }
+
+  .bank-val {
+    font-size: 0.875rem;
+    flex-wrap: wrap;
+  }
+
+  .reference-hints {
+    font-size: 0.75rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .reference-hints code {
+    font-size: 0.75rem;
+    word-break: break-all;
+  }
 }
 
 @media (max-width: 480px) {
