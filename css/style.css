@@ -368,23 +368,35 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   z-index: 110;
   flex-shrink: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-link:focus,
+.brand-link:focus-visible,
+.brand-link:active {
+  outline: none !important;
 }
 
 .brand-crest {
-  background: #FFFFFF;
+  background-color: #FFFFFF;
   padding: 8px 14px 14px 14px;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(139, 18, 24, 0.08);
-  border-top: none;
+  border: none !important;
+  outline: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   margin-top: -6px;
   margin-bottom: -26px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand-link.brand-overlap:hover .brand-crest {
@@ -398,8 +410,12 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 95px;
   object-fit: contain;
   display: block;
+  border: none !important;
+  outline: none !important;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand-link.brand-overlap:hover .brand-logo {
@@ -414,13 +430,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .site-header.scrolled .brand-crest {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  padding: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  border-radius: 0;
+  background-color: transparent !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
 }
 
 .site-header.scrolled .brand-overlap .brand-logo {
@@ -598,6 +615,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   color: var(--gold-light);
   margin-bottom: 1.5rem;
+}
+
+.badge-cross-icon {
+  color: var(--gold-accent);
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.6));
 }
 
 .hero-badge .dot-pulse {
@@ -2708,8 +2733,8 @@ textarea.form-control {
 @media (max-width: 1040px) {
   .hero-title {
     white-space: normal;
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    line-height: 1.25;
+    font-size: clamp(2rem, 5.5vw, 2.75rem);
+    line-height: 1.2;
   }
 
   /* Mobile Top Bar: Only Matthew 28:19 Scripture, remove phone, address, and Facebook */
@@ -2832,21 +2857,27 @@ textarea.form-control {
   .brand-link.brand-overlap {
     align-self: flex-start;
     margin-top: 0;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
   .brand-crest {
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     padding: 6px 12px 14px 12px;
     border-radius: 0 0 20px 20px;
     box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.32), 0 4px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(139, 18, 24, 0.08);
-    border-top: none;
+    border: none !important;
+    outline: none !important;
     margin-top: 0;
     margin-bottom: -28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .brand-overlap .brand-logo {
@@ -2854,7 +2885,10 @@ textarea.form-control {
     width: 76px;
     max-width: 84px;
     display: block;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none !important;
+    outline: none !important;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Scrolled state on mobile: logo goes up, gets smaller, sits flat on white with NO shadow, NO border, NO box */
@@ -2868,9 +2902,10 @@ textarea.form-control {
   }
 
   .site-header.scrolled .brand-crest {
-    background: transparent !important;
-    box-shadow: none !important;
+    background-color: transparent !important;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
     border: none !important;
+    outline: none !important;
     padding: 0 !important;
     margin: 0 !important;
     border-radius: 0 !important;
@@ -2916,6 +2951,26 @@ textarea.form-control {
   .hero {
     min-height: auto;
     padding: 5rem 0 4rem 0;
+  }
+
+  .hero-title {
+    font-size: clamp(2.05rem, 7vw, 2.55rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.15rem;
+  }
+
+  .hero-badge {
+    font-size: 0.825rem;
+    padding: 0.38rem 0.95rem;
+    gap: 0.55rem;
+    margin-bottom: 1.25rem;
+    max-width: 100%;
+  }
+
+  .badge-cross-icon {
+    width: 11px;
+    height: 15px;
   }
 
   .hero-slider-nav {
@@ -3153,28 +3208,77 @@ textarea.form-control {
   .brand-link.brand-overlap {
     align-self: flex-start;
     margin-top: 0;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
   .brand-crest {
+    background-color: #FFFFFF;
+    border: none !important;
+    outline: none !important;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.08);
     padding: 5px 10px 12px 10px;
     border-radius: 0 0 18px 18px;
     margin-top: 0;
     margin-bottom: -26px;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .brand-overlap .brand-logo {
     height: 70px;
     width: 70px;
     max-width: 76px;
+    border: none !important;
+    outline: none !important;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .site-header.scrolled .navbar {
     height: 58px;
   }
 
+  .site-header.scrolled .brand-link.brand-overlap {
+    align-self: center !important;
+    margin: 0 !important;
+  }
+
+  .site-header.scrolled .brand-crest {
+    background-color: transparent !important;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+    border: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
   .site-header.scrolled .brand-overlap .brand-logo {
     height: 44px !important;
     width: 44px !important;
+    filter: none !important;
+  }
+
+  .hero-badge {
+    font-size: 0.775rem;
+    padding: 0.35rem 0.85rem;
+    gap: 0.5rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .badge-cross-icon {
+    width: 10px;
+    height: 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.95rem, 7.8vw, 2.35rem);
+    line-height: 1.16;
+    letter-spacing: -0.015em;
   }
 
   .hero-title-br {
