@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=8">
 
   <!-- Schema.org Church Structured Data -->
   <script type="application/ld+json">
@@ -1281,6 +1281,83 @@
       </div>
     </div>
   </footer>
+
+  <!-- 18. FLOATING CHURCH CHATBOT ASSISTANT -->
+  <div class="church-chat-floater-wrap" id="churchChatFloaterWrap">
+    <!-- Chat Window Container -->
+    <div class="church-chat-window" id="churchChatWindow" role="region" aria-label="Wesbank Baptist Church Chat Assistant" aria-hidden="true">
+      <!-- Window Header -->
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">
+            <img src="assets/logo.png" alt="Wesbank Baptist Church Logo" width="34" height="34">
+            <span class="chat-online-dot" title="Online Guide"></span>
+          </div>
+          <div class="chat-header-text">
+            <h4 class="chat-title">Wesbank Baptist Guide</h4>
+            <span class="chat-status">Community &amp; Ministry Assistant</span>
+          </div>
+        </div>
+        <button type="button" class="chat-close-btn" id="churchChatCloseBtn" aria-label="Close Chat Window">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="chat-body" id="churchChatMessages">
+        <!-- Initial Welcome Bubble -->
+        <div class="chat-msg bot">
+          <div class="msg-bubble">
+            <p class="msg-greeting"><strong>Welcome to Wesbank Baptist Church!</strong> 👋</p>
+            <p>Peace and grace to you. How can we assist you today? Tap any of the quick questions below or type your inquiry:</p>
+          </div>
+          <span class="msg-time">Just now</span>
+        </div>
+
+        <!-- Quick Question Chips -->
+        <div class="chat-quick-chips" id="churchChatPills">
+          <button type="button" class="chip-btn" data-query="times">🕒 Sunday Service Times</button>
+          <button type="button" class="chip-btn" data-query="schedule">📅 Weekly Schedule</button>
+          <button type="button" class="chip-btn" data-query="prayer">🙏 Prayer Group Times</button>
+          <button type="button" class="chip-btn" data-query="location">📍 Church Location</button>
+          <button type="button" class="chip-btn" data-query="contact">📞 Contact &amp; Pastor Details</button>
+          <button type="button" class="chip-btn" data-query="feeding">🍲 Feeding Scheme</button>
+          <button type="button" class="chip-btn" data-query="giving">💝 Bank Details / Giving</button>
+        </div>
+      </div>
+
+      <!-- Input Bar -->
+      <form class="chat-input-bar" id="churchChatForm" autocomplete="off">
+        <input type="text" id="churchChatInput" class="chat-input" placeholder="Type a question (e.g., service, prayer, pastor)..." aria-label="Type your church inquiry">
+        <button type="submit" class="chat-send-btn" id="churchChatSendBtn" aria-label="Send Inquiry">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Floating Trigger Button -->
+    <button type="button" class="church-chat-floater-btn" id="churchChatFloaterBtn" aria-label="Open Church Assistant">
+      <span class="floater-pulse-ring"></span>
+      <div class="floater-icon-open">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </div>
+      <div class="floater-icon-close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </div>
+      <span class="floater-label">Church Guide</span>
+    </button>
+  </div>
 
   <!-- Back to Top Button -->
   <button type="button" class="back-to-top" id="backToTopBtn" aria-label="Back to Top">

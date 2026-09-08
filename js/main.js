@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPrayerWall();
   initGivingClipboard();
   initContactForm();
+  initChurchChatWidget();
 });
 
 /* ==========================================================================
@@ -794,4 +795,329 @@ function initPhotoGallery() {
       }
     }, { passive: true });
   }
+}
+
+/* ==========================================================================
+   9. FLOATING CHURCH CHATBOT ASSISTANT
+   ========================================================================== */
+function initChurchChatWidget() {
+  const floaterBtn = document.getElementById('churchChatFloaterBtn');
+  const chatWindow = document.getElementById('churchChatWindow');
+  const closeBtn = document.getElementById('churchChatCloseBtn');
+  const messagesContainer = document.getElementById('churchChatMessages');
+  const chatForm = document.getElementById('churchChatForm');
+  const chatInput = document.getElementById('churchChatInput');
+
+  if (!floaterBtn || !chatWindow || !messagesContainer) return;
+
+  let isOpen = false;
+
+  function toggleChat(open) {
+    isOpen = typeof open === 'boolean' ? open : !isOpen;
+    if (isOpen) {
+      chatWindow.classList.add('active');
+      floaterBtn.classList.add('open');
+      chatWindow.setAttribute('aria-hidden', 'false');
+      if (chatInput && window.innerWidth > 768) {
+        setTimeout(() => chatInput.focus(), 300);
+      }
+    } else {
+      chatWindow.classList.remove('active');
+      floaterBtn.classList.remove('open');
+      chatWindow.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  floaterBtn.addEventListener('click', () => toggleChat());
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleChat(false);
+    });
+  }
+
+  // Pre-configured questions and rich church answers
+  const churchKnowledgeBase = {
+    times: {
+      question: "Sunday Service Times",
+      answer: `
+        <strong>Sunday Worship Times:</strong><br>
+        &bull; <strong>09:00 AM – 10:00 AM</strong>: Sunday School (Children &amp; Adult Bible Classes)<br>
+        &bull; <strong>10:00 AM – 12:00 PM</strong>: Main Sunday Morning Worship &amp; Preaching<br><br>
+        <em>"Therefore go and make disciples of all nations..." &mdash; Matt 28:19</em>
+      `,
+      actions: [
+        { label: "Join Us Sunday", href: "#services" },
+        { label: "Church Location", href: "#location" }
+      ]
+    },
+    schedule: {
+      question: "Weekly Church Schedule",
+      answer: `
+        <strong>Weekly Ministries &amp; Gatherings:</strong><br>
+        &bull; <strong>Wednesday (19:00 – 20:30)</strong>: Midweek Bible Study &amp; Corporate Prayer<br>
+        &bull; <strong>Friday (18:30 – 20:30)</strong>: Wesbank Youth Fellowship &amp; Mentorship<br>
+        &bull; <strong>Saturday (11:00 AM)</strong>: Community Feeding Scheme Outreach<br>
+        &bull; <strong>Sunday (09:00 AM)</strong>: Sunday School &amp; Kingdom Kids<br>
+        &bull; <strong>Sunday (10:00 AM)</strong>: Sunday Morning Worship Service
+      `,
+      actions: [
+        { label: "View Ministries", href: "#ministries" },
+        { label: "Feeding Scheme", href: "#outreach" }
+      ]
+    },
+    prayer: {
+      question: "Prayer Group Times & Wall",
+      answer: `
+        <strong>Prayer Gatherings &amp; Intercession:</strong><br>
+        &bull; <strong>Wednesday Prayer Meeting</strong>: Every Wednesday at <strong>19:00 SAST</strong> at the church.<br>
+        &bull; <strong>Sunday Pre-Service Prayer</strong>: Every Sunday morning from <strong>09:15 AM</strong>.<br><br>
+        You can also post your personal prayer request anytime on our website prayer wall for our deacons and pastoral team to pray over:
+      `,
+      actions: [
+        { label: "Post on Prayer Wall", href: "#prayer" },
+        { label: "Call Church Office", href: "tel:+27219096316" }
+      ]
+    },
+    location: {
+      question: "Church Location & Directions",
+      answer: `
+        <strong>Physical Address:</strong><br>
+        📍 <strong>141 Diepwater St, Wesbank, Cape Town, 7580</strong><br><br>
+        Easily accessible via Stellenbosch Arterial and Hindle Road in Kuils River. All visitors, families, and seekers are warmly welcomed!
+      `,
+      actions: [
+        { label: "Google Maps Directions", href: "https://maps.google.com/?q=-33.966347,18.657777", target: "_blank" },
+        { label: "Contact Details", href: "#location" }
+      ]
+    },
+    contact: {
+      question: "Contact & Pastoral Details",
+      answer: `
+        <strong>Wesbank Baptist Church Contact:</strong><br>
+        &bull; <strong>Office Phone</strong>: <a href="tel:+27219096316" style="color: var(--primary); font-weight: 700;">021 909 6316</a><br>
+        &bull; <strong>Senior Pastor</strong>: Pastor Jonathan Pretorius<br>
+        &bull; <strong>First Lady</strong>: Sister Jacqueline Pretorius<br>
+        &bull; <strong>Facebook Page</strong>: <a href="https://www.facebook.com/wesbankbaptistchurch/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: underline;">facebook.com/wesbankbaptistchurch</a>
+      `,
+      actions: [
+        { label: "Call: 021 909 6316", href: "tel:+27219096316" },
+        { label: "Send Message", href: "#location" }
+      ]
+    },
+    feeding: {
+      question: "Community Feeding Scheme",
+      answer: `
+        <strong>The Heart of Wesbank Outreach:</strong><br>
+        Every week our church prepares hot nutritious meals, groceries, and bread packages to feed vulnerable children and families across the Wesbank community.<br><br>
+        Led by Pastor Jonathan, First Lady Jacqueline, and the Deacon Board.
+      `,
+      actions: [
+        { label: "Feeding Details", href: "#outreach" },
+        { label: "Support Outreach", href: "#giving" }
+      ]
+    },
+    giving: {
+      question: "Church Banking Details (EFT)",
+      answer: `
+        <strong>Official Church Bank Details:</strong><br>
+        &bull; <strong>Bank</strong>: ABSA Bank<br>
+        &bull; <strong>Account Name</strong>: Wesbank Baptist Church<br>
+        &bull; <strong>Account Number</strong>: <code>406 328 8813</code><br>
+        &bull; <strong>Branch Code</strong>: <code>632 005</code><br>
+        &bull; <strong>Account Type</strong>: Cheque Account<br><br>
+        <em>Reference: Your Surname &amp; TITHE / FEEDING</em>
+      `,
+      actions: [
+        { label: "Go to Giving Section", href: "#giving" }
+      ]
+    }
+  };
+
+  // Helper to append message
+  function appendMessage(sender, htmlContent, actions = null) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-msg ${sender}`;
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = htmlContent;
+
+    if (actions && actions.length > 0) {
+      const actionsWrap = document.createElement('div');
+      actionsWrap.style.marginTop = '8px';
+      actions.forEach(act => {
+        const a = document.createElement('a');
+        a.className = 'chat-action-link';
+        a.href = act.href;
+        if (act.target) a.target = act.target;
+        if (act.target === '_blank') a.rel = 'noopener noreferrer';
+        a.textContent = act.label;
+        a.addEventListener('click', () => {
+          if (act.href.startsWith('#') && window.innerWidth <= 768) {
+            toggleChat(false);
+          }
+        });
+        actionsWrap.appendChild(a);
+      });
+      bubble.appendChild(actionsWrap);
+    }
+
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'msg-time';
+    const now = new Date();
+    timeSpan.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    msgDiv.appendChild(bubble);
+    msgDiv.appendChild(timeSpan);
+    messagesContainer.appendChild(msgDiv);
+
+    // Auto-scroll
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Show typing indicator
+  function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-msg bot typing-msg';
+    typingDiv.innerHTML = `
+      <div class="typing-dots">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
+    `;
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    return typingDiv;
+  }
+
+  // Handle Query
+  function handleQuery(queryKey, userLabel = null) {
+    const data = churchKnowledgeBase[queryKey];
+    const userText = userLabel || (data ? data.question : queryKey);
+
+    // Show user question
+    appendMessage('user', escapeHtml(userText));
+
+    // Show typing
+    const typingEl = showTypingIndicator();
+
+    setTimeout(() => {
+      if (typingEl && typingEl.parentNode) {
+        typingEl.parentNode.removeChild(typingEl);
+      }
+
+      if (data) {
+        appendMessage('bot', data.answer, data.actions);
+      } else {
+        findMatchingAnswer(queryKey);
+      }
+
+      appendFollowUpChips();
+    }, 450);
+  }
+
+  function appendFollowUpChips() {
+    const chipsDiv = document.createElement('div');
+    chipsDiv.className = 'chat-quick-chips';
+    chipsDiv.style.marginTop = '6px';
+    chipsDiv.innerHTML = `
+      <button type="button" class="chip-btn" data-query="times">🕒 Sunday Service</button>
+      <button type="button" class="chip-btn" data-query="prayer">🙏 Prayer Times</button>
+      <button type="button" class="chip-btn" data-query="schedule">📅 Weekly Schedule</button>
+      <button type="button" class="chip-btn" data-query="location">📍 Location</button>
+      <button type="button" class="chip-btn" data-query="contact">📞 Contact Details</button>
+    `;
+    messagesContainer.appendChild(chipsDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    chipsDiv.querySelectorAll('.chip-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-query');
+        handleQuery(q, btn.textContent.trim());
+      });
+    });
+  }
+
+  function findMatchingAnswer(rawText) {
+    const text = rawText.toLowerCase();
+
+    if (text.includes('time') || text.includes('hour') || text.includes('sunday') || text.includes('service') || text.includes('worship') || text.includes('start') || text.includes('when')) {
+      const data = churchKnowledgeBase.times;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('prayer') || text.includes('pray') || text.includes('intercession')) {
+      const data = churchKnowledgeBase.prayer;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('schedule') || text.includes('week') || text.includes('wednesday') || text.includes('friday') || text.includes('activities')) {
+      const data = churchKnowledgeBase.schedule;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('where') || text.includes('location') || text.includes('address') || text.includes('map') || text.includes('directions') || text.includes('kuils')) {
+      const data = churchKnowledgeBase.location;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('contact') || text.includes('phone') || text.includes('call') || text.includes('number') || text.includes('pastor') || text.includes('jonathan')) {
+      const data = churchKnowledgeBase.contact;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('feed') || text.includes('food') || text.includes('outreach') || text.includes('soup') || text.includes('hunger') || text.includes('children')) {
+      const data = churchKnowledgeBase.feeding;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('give') || text.includes('giving') || text.includes('bank') || text.includes('account') || text.includes('tithe') || text.includes('offering') || text.includes('eft') || text.includes('absa')) {
+      const data = churchKnowledgeBase.giving;
+      appendMessage('bot', data.answer, data.actions);
+    } else if (text.includes('youth') || text.includes('kids') || text.includes('children')) {
+      appendMessage('bot', `
+        <strong>Youth &amp; Children's Ministries:</strong><br>
+        &bull; <strong>Kingdom Kids</strong>: Every Sunday morning during Sunday School (09:00 AM)<br>
+        &bull; <strong>Wesbank Youth Fellowship</strong>: Every Friday evening at 18:30 – 20:30<br><br>
+        Fun, spiritual mentorship, music, and wholesome Christian fellowship!
+      `, [
+        { label: "Youth Details", href: "#ministries" }
+      ]);
+    } else if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('greetings') || text.includes('welcome')) {
+      appendMessage('bot', `
+        <strong>Welcome to Wesbank Baptist Church!</strong><br>
+        Peace and blessings in Jesus' name! How can we help you today? Feel free to tap one of our quick topics or ask anything about our services, ministries, or prayer wall.
+      `, [
+        { label: "Service Times", href: "#services" },
+        { label: "Prayer Wall", href: "#prayer" }
+      ]);
+    } else {
+      appendMessage('bot', `
+        Thank you for reaching out! For this inquiry or personal pastoral assistance, please call our church office at <a href="tel:+27219096316" style="color: var(--primary); font-weight: 700;">021 909 6316</a> or join us this Sunday morning at 10:00 AM!
+      `, [
+        { label: "Call Church Office", href: "tel:+27219096316" },
+        { label: "Service Times", href: "#services" },
+        { label: "Church Location", href: "#location" }
+      ]);
+    }
+  }
+
+  // Handle Initial Chip Clicks
+  const initialChips = document.getElementById('churchChatPills');
+  if (initialChips) {
+    initialChips.querySelectorAll('.chip-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const query = btn.getAttribute('data-query');
+        handleQuery(query, btn.textContent.trim());
+      });
+    });
+  }
+
+  // Handle Form Submit
+  if (chatForm && chatInput) {
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = chatInput.value.trim();
+      if (!val) return;
+      chatInput.value = '';
+      handleQuery(val, val);
+    });
+  }
+
+  // Keyboard close on Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) {
+      toggleChat(false);
+    }
+  });
 }
